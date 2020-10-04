@@ -1,0 +1,123 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      3782,        115]
+NotebookOptionsPosition[      3303,         98]
+NotebookOutlinePosition[      3702,        114]
+CellTagsIndexPosition[      3659,        111]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{" ", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"thetaPrime", "[", 
+      RowBox[{"d_", ",", "dd_", ",", "\[Theta]_", ",", "f_"}], "]"}], ":=", 
+     RowBox[{"ArcSin", "[", 
+      RowBox[{
+       RowBox[{"Sin", "[", "\[Theta]", "]"}], "-", 
+       FractionBox["c", 
+        RowBox[{"d", " ", "f"}]]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"x", "[", 
+      RowBox[{"d_", ",", "dd_", ",", "\[Theta]_", ",", "f_"}], "]"}], ":=", 
+     FractionBox["dd", 
+      RowBox[{"Cos", "[", 
+       RowBox[{"thetaPrime", "[", 
+        RowBox[{"d", ",", "dd", ",", "\[Theta]", ",", "f"}], "]"}], "]"}]]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ni", "[", 
+      RowBox[{"d_", ",", "dd_", ",", "\[Theta]_", ",", "f_"}], "]"}], ":=", 
+     RowBox[{"-", 
+      RowBox[{"Cos", "[", 
+       RowBox[{"\[Theta]", "-", 
+        RowBox[{"thetaPrime", "[", 
+         RowBox[{"d", ",", "dd", ",", "\[Theta]", ",", "f"}], "]"}]}], 
+       "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"tg", "[", 
+      RowBox[{"d_", ",", "dd_", ",", "\[Theta]_", ",", "f_"}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{"x", "[", 
+       RowBox[{"d", ",", "dd", ",", "\[Theta]", ",", "f"}], "]"}], "-", 
+      RowBox[{"ni", "[", 
+       RowBox[{"d", ",", "dd", ",", "\[Theta]", ",", "f"}], "]"}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"FullSimplify", "[", 
+    RowBox[{"tg", "[", 
+     RowBox[{"d", ",", "dd", ",", "\[Theta]", ",", "f"}], "]"}], 
+    "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.809685190629615*^9, 3.809685217554147*^9}, {
+  3.8096852553747673`*^9, 3.809685258997748*^9}, {3.8096853858814783`*^9, 
+  3.8096854836043167`*^9}, {3.809685561599286*^9, 3.8096856121412287`*^9}, {
+  3.809685739851363*^9, 3.809685804951661*^9}, {3.809685906939467*^9, 
+  3.8096859315392313`*^9}, {3.8096859885894403`*^9, 3.809686115838073*^9}},
+ CellLabel->"In[10]:=",ExpressionUUID->"72c85454-90bb-4040-943a-3776f557ef9e"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Cos", "[", 
+   RowBox[{"\[Theta]", "+", 
+    RowBox[{"ArcSin", "[", 
+     RowBox[{
+      FractionBox["c", 
+       RowBox[{"d", " ", "f"}]], "-", 
+      RowBox[{"Sin", "[", "\[Theta]", "]"}]}], "]"}]}], "]"}], "+", 
+  FractionBox["dd", 
+   SqrtBox[
+    RowBox[{"1", "-", 
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"-", 
+         FractionBox["c", 
+          RowBox[{"d", " ", "f"}]]}], "+", 
+        RowBox[{"Sin", "[", "\[Theta]", "]"}]}], ")"}], "2"]}]]]}]], "Output",\
+
+ CellChangeTimes->{3.809686116641758*^9},
+ CellLabel->"Out[14]=",ExpressionUUID->"4d3a8666-c2c3-43a4-bb29-45564ed503e0"]
+}, Open  ]]
+},
+WindowSize->{606., 658.5},
+WindowMargins->{{169.5, Automatic}, {18.75, Automatic}},
+FrontEndVersion->"12.1 for Linux x86 (64-bit) (June 19, 2020)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"4dd21bce-7547-4b52-9c19-5f82425c82ad"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 2047, 50, 170, "Input",ExpressionUUID->"72c85454-90bb-4040-943a-3776f557ef9e"],
+Cell[2630, 74, 657, 21, 84, "Output",ExpressionUUID->"4d3a8666-c2c3-43a4-bb29-45564ed503e0"]
+}, Open  ]]
+}
+]
+*)
+
