@@ -75,10 +75,10 @@ cf = 0.3;        % central frequency
 % calculate group delay
 % cache: gratingDelay(1, 1, pi/6, f, cf)
 % cache: prismDelay(pi/12, 10000, 0, f, cf)
-tg = gratingDelay(1, 10000, pi/6, f, cf);
+tg = gratingDelay(1, 1, pi/6, f, cf);
 
 % plot group delay
-figure(21); plot(f,tg); axis([0 1 -2*10^4 10^5]);
+figure(21); plot(f,tg);
 
 
 % calculate GDD and TOD
