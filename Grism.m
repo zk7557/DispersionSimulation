@@ -68,6 +68,7 @@ colorbar; title('Spectrum after Disperison');
 
 %% find the GDD and TOD of a configuration
 global c;
+c = 0.3;
 df = 0.0005;
 f = 0:df:1-df;  
 cf = 0.3;        % central frequency
@@ -75,7 +76,7 @@ cf = 0.3;        % central frequency
 % calculate group delay
 % cache: gratingDelay(1, 1, pi/6, f, cf)
 % cache: prismDelay(pi/12, 10000, 0, f, cf)
-tg = gratingDelay(1, 10000, pi/6, f, cf);
+tg = prismDelay(pi/3, 20000, pi/6, f, cf);
 
 % plot group delay
 figure(21); plot(f,tg); axis([0 1 -2*10^4 10^5]);
@@ -85,10 +86,17 @@ figure(21); plot(f,tg); axis([0 1 -2*10^4 10^5]);
 GDD = (tg(2:end) - tg(1:end-1))/(df*2*pi);
 TOD = (GDD(2:end) - GDD(1:end-1))/(df*2*pi);
 
+% show the GDD/TOD ratio
+ratio23 = GDD(600)/TOD(600);
+
 % plot GDD and TOD
 rng = (550:650);
 figure(22); plot(f(rng),GDD(rng));
 figure(23); plot(f(rng),TOD(rng));
+
+%% Test area
+global c;
+prismDelay(1, 2, 3, 4, 4)
 
 %% functions
 % refractive index for BK7, function of lambda
@@ -103,7 +111,7 @@ end
 % refractive index for BK7, function of frequency
 function n = rIndexF(f)
 	global c;
-	wavelength = c./f;
+	wavelength = c ./ f;
 	n = rIndexL(wavelength);
 end
 
@@ -170,19 +178,24 @@ end
 
 % time delay from prism compressor, shown in CompressorAnnotation.pdf
 function tp = prismDelay(a, dd, theta, f, pf)
+    global c;
 	f = [f pf];
 	n = rIndexF(f);
 	n2 = n .^2;
 	
-	xp = 10000; % useless variable - well, not that useless
-	usefulAngle = a - acsc(csc(theta) * n);
-	usefulSqrt = sqrt(1 - (usefulAngle .* n).^2);
-	denominator = usefulSqrt .* sqrt(1 - (sin(theta) ./ n).^2);
-	tp = -xp + dd * usefulSqrt + ... 
-		 n .* (xp - dd *(usefulAngle .* n * sin(a)) ./ denominator) + ...
-		 (dd * (- usefulAngle) .* n * sin(theta) .* ...
-		  sin(a + asec(csc(theta) * n))) ./ denominator;
-    tp(1) = 0;
+	xp = 1; % useless variable - well, not that useless
+
+    theta3 = asin(n .* sin(a - asin(sin(theta) ./ n)));
+    cos1 = cos(asin(sin(theta) ./ n));
+    
+    tp = 1/c * ( ...
+                dd ./ cos(theta3) + ...
+                n .* (xp - dd * sin(a) * tan(theta3) ./ cos1) - ...
+                xp + dd * tan(theta3) .* ...
+                cos(a - asin(sin(theta) ./ n))./ cos1 .* sin(theta) ...
+                );
+    
+%     tp(1) = 0;
     tp = real(tp - tp(end));
     tp = tp(1:end-1);
 end
