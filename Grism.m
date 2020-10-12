@@ -75,8 +75,8 @@ cf = 0.3;        % central frequency
 
 % calculate group delay
 % cache: gratingDelay(1, 1, pi/6, f, cf)
-% cache: prismDelay(pi/12, 10000, 0, f, cf)
-tg = prismDelay(pi/3, 20000, pi/6, f, cf);
+% cache: prismDelay(pi/3, 20000, 0.507, f, cf)
+tg = prismDelay(pi/3, 20000, 0.507, f, cf);
 
 % plot group delay
 figure(21); plot(f,tg); axis([0 1 -2*10^4 10^5]);
