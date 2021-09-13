@@ -74,9 +74,10 @@ f = 0:df:1-df;
 cf = 0.3;        % central frequency
 
 % calculate group delay
-% cache: gratingDelay(1, 1, pi/6, f, cf)
-% cache: prismDelay(pi/3, 20000, 0.507, f, cf)
-tg = prismDelay(pi/3, 20000, 0.507, f, cf);
+% Our gratings: gratingDelay(1, 10000, pi/6, f, cf)
+% Equilateral BK7: prismDelay(pi/3, 20000, 0.507, f, cf)
+% Thorlabs AFS-FS: prismDelay(69.1* pi/180, 20000,pi/4, f, cf)
+tg = gratingDelay(1, 10000, pi/6, f, cf);
 
 % plot group delay
 figure(21); plot(f,tg); axis([0 1 -2*10^4 10^5]);
@@ -91,8 +92,8 @@ ratio23 = GDD(600)/TOD(600);
 
 % plot GDD and TOD
 rng = (550:650);
-figure(22); plot(f(rng),GDD(rng));
-figure(23); plot(f(rng),TOD(rng));
+figure(22); plot(f(rng),GDD(rng));title('GDD');
+figure(23); plot(f(rng),TOD(rng));title('TOD');
 
 %% Test area
 global c;
@@ -177,6 +178,7 @@ function tg = grismDelay(a, d, dd, theta, f)
 end
 
 % time delay from prism compressor, shown in CompressorAnnotation.pdf
+% a:    apex angle
 function tp = prismDelay(a, dd, theta, f, pf)
     global c;
 	f = [f pf];
@@ -195,12 +197,17 @@ function tp = prismDelay(a, dd, theta, f, pf)
                 cos(a - asin(sin(theta) ./ n))./ cos1 .* sin(theta) ...
                 );
     
-%     tp(1) = 0;
+    tp(1) = 0;
     tp = real(tp - tp(end));
     tp = tp(1:end-1);
 end
 
 % time delay from grating compressor, the one in use
+% d:    groove distance, in um
+% dd:   distance between the gratings, in um
+% theta:incident angle, respact to normal direction
+% f:    frequency array
+% pf:   central frequency, only used as zero reference
 function tc = gratingDelay(d, dd, theta, f, pf)
 	global c;
     f = [f pf];
@@ -233,7 +240,7 @@ function X = shiftedIFFT(x, ft)
     % delay function of frequency, use the following format:
     % Mdelay = delayFunction(ft) .* ones(N, 1); 
     % where delayfunction returns a 1xN row vector
-	Mdelay = prismDelay(pi/12, 10000, 0.1, ft, 0.3) .* ones(N,1) ;
+	Mdelay = prismDelay(69.1* pi/180, 40000 ,pi/4, ft, 0.3) .* ones(N,1) ;
     
 	M = Mf .*(Mt - Mdelay);
 	M = exp((-2i*pi/N) * M)/N;
